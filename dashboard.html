@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h2>Dashboard</h2>
+  <p id="msg"></p>
+  <button onclick="logout()">Logout</button>
+
+  <script>
+    async function loadDashboard() {
+      const token = localStorage.getItem("token");
+
+      const res = await fetch("https://YOUR_BACKEND_URL/api/dashboard", {
+        headers: { authorization: token }
+      });
+
+      const data = await res.json();
+      document.getElementById("msg").innerText = data.message;
+    }
+
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "login.html";
+    }
+
+    loadDashboard();
+  </script>
+</body>
+</html>
